@@ -1,6 +1,6 @@
 FROM debian:buster
 RUN apt-get -y update
-RUN apt-get -y install curl git openssh-client rsync unzip jq  && \
+RUN apt-get -y install curl git openssh-client rsync unzip jq amazon-ecr-credential-helper && \
 	rm -rf /var/lib/apt/lists/*
 RUN curl -s -o docker.tgz "https://download.docker.com/linux/static/stable/x86_64/docker-"`curl -s https://api.github.com/repos/docker/docker-ce/releases/latest | jq -r .name`".tgz" && \
 	tar --extract \
@@ -15,7 +15,7 @@ RUN curl -s -o docker.tgz "https://download.docker.com/linux/static/stable/x86_6
 	dockerd --version; \
 	docker --version; \
 	docker-compose --version
-# Install AWSCLI
+# Installs AWSCLI
 RUN curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
 	unzip awscliv2.zip && \
 	./aws/install && \
